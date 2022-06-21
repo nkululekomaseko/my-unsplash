@@ -16,6 +16,33 @@ const AddPhotoForm = (props: Props) => {
       password: "",
       confirmPassword: "",
     },
+    validate: {
+      label: (value) => {
+        return value.length < 3 ? "Must have at least 3 letters" : null;
+      },
+      imageURL: (value) => {
+        return /\b(https?):\/\/[\-A-Za-z0-9+&@#\/%?=~_|!:,.;]*[\-A-Za-z0-9+&@#\/%=~_|]/.test(
+          value
+        )
+          ? "Invalid URL"
+          : null;
+      },
+      password: (value) => {
+        if (value.length < 5) return "Must have at least 5 letters";
+        else if (!/[0-9]/.test(value)) return "Must include a number";
+        else if (!/[a-z]/.test(value)) return "Must include a lowercase letter";
+        else if (!/[A-Z]/.test(value))
+          return "Must include an uppercase letter";
+        else if (!/[$&+,:;=?@#|'<>.^*()%!-]/.test(value))
+          return "Must include a special symbol";
+        else {
+          return null;
+        }
+      },
+      confirmPassword: (value, values) => {
+        return value !== values.password ? "Passwords did not match" : null;
+      },
+    },
   });
 
   const handleCancelBtn = () => {
