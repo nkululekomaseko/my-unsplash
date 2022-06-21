@@ -34,12 +34,30 @@ const Home: NextPage = () => {
           <Button className={styles.add_photo_btn}>Add a photo</Button>
         </Box>
       </nav>
-      <Box>
-        <Masonry columns={3} spacing={3}>
-          <Box>1</Box>
-          <Box>2</Box>
-          <Box>3</Box>
-          <Box>4</Box>
+
+      <Box className={styles.masonry_container}>
+        <Masonry columns={3} spacing={4}>
+          {[
+            "https://image-uploader-tool.herokuapp.com/api/image/pexels-blaque-x-863963.jpg",
+            "https://image-uploader-tool.herokuapp.com/api/image/pexels-brett-sayles-2097628.jpg",
+            "https://image-uploader-tool.herokuapp.com/api/image/pexels-katie-burandt-1212693.jpg",
+            "https://image-uploader-tool.herokuapp.com/api/image/pexels-helena-lopes-1388069.jpg",
+            "https://image-uploader-tool.herokuapp.com/api/image/pexels-pixabay-36729.jpg",
+            "https://image-uploader-tool.herokuapp.com/api/image/pexels-oliver-sjÃ¶strÃ¶m-1433052.jpg",
+            "https://image-uploader-tool.herokuapp.com/api/image/pexels-tetyana-kovyrina-937980.jpg",
+          ].map((link, index) => {
+            return (
+              <Box key={index} className={styles.masonry_image_box}>
+                <img
+                  className={styles.masonry_image}
+                  src={link}
+                  alt="alt"
+                  width="100%"
+                />
+                {/* <Button>Hello</Button> */}
+              </Box>
+            );
+          })}
         </Masonry>
       </Box>
     </Box>

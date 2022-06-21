@@ -2,6 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 3%;
 }
 
 .nav__left {
@@ -29,4 +30,21 @@
   border: 1px solid #bdbdbd;
   filter: drop-shadow(0px 1px 6px rgba(0, 0, 0, 0.1));
   border-radius: 12px;
+}
+
+.masonry_container {
+  width: 100%;
+  min-height: 900px;
+  display: flex;
+  justify-content: center;
+}
+
+.masonry_image_box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.masonry_image {
+  border-radius: 16px;
 }
