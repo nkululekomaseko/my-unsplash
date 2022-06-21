@@ -33,7 +33,29 @@ export const createUnsplash = async (payload: UnsplashSchema) => {
 };
 
 // DELETE
-export const deleteUnsplashById = async (id: string) => {
-  const unsplash = await prisma.unsplash.delete({ where: { id } });
-  return unsplash;
+export const deleteUnsplashById = async (
+  id: string,
+  candidatePassword: string
+) => {
+  const unsplashResponse = await getUnsplashById(id);
+  if (
+    !!unsplashResponse &&
+    argon2.verify(unsplashResponse.password, candidatePassword)
+  ) {
+    const unsplash = await prisma.unsplash.delete({ where: { id } });
+    return unsplash;
+  }
+  return null;
+};
+
+export const validatePassword = async (
+  id: string,
+  candidatePassword: string
+): Promise<boolean> => {
+  const unsplash = await prisma.unsplash.findUnique({ where: { id } });
+  if (!!unsplash) {
+    return await argon2.verify(unsplash.password, candidatePassword);
+  }
+
+  return false;
 };
