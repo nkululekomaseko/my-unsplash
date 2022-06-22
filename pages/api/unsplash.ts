@@ -1,5 +1,4 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { METHODS } from "http";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { UnsplashSchema } from "../../prisma/unsplash";
 import {
