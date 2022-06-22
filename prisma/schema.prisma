@@ -13,7 +13,7 @@ datasource db {
 model Unsplash {
   id        String   @id @default(cuid()) @map("_id")
   label     String
-  imageUrl  String   @unique
+  imageUrl  String
   password  String
   createdAt DateTime @default(now())
 }
