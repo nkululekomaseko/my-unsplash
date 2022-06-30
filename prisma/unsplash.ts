@@ -8,8 +8,28 @@ export type UnsplashSchema = {
 };
 
 // READ
-export const getAllUnsplash = async () => {
-  const unsplashList = await prisma.unsplash.findMany({});
+export const getAllUnsplash = async (filterQuery?: string) => {
+  let unsplashList;
+
+  if (!!filterQuery) {
+    unsplashList = await prisma.unsplash.findMany({
+      where: {
+        label: {
+          contains: filterQuery,
+          mode: "insensitive",
+        },
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+  } else {
+    unsplashList = await prisma.unsplash.findMany({
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+  }
   return unsplashList;
 };
 
