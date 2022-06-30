@@ -9,16 +9,45 @@ import { Masonry } from "@mui/lab";
 import AddPhotoForm from "../components/AddPhotoForm";
 import { useState } from "react";
 import { getAllUnsplash } from "../components/apiRequest";
+import { UnsplashSchema } from "../prisma/unsplash";
 
 export let unsplashURL: string | undefined = undefined;
 
 const Home: NextPage = () => {
   const [openPhotoFormModal, setOpenPhotoFormModal] = useState<boolean>(false);
-  const [unsplashData, setUnsplashData] = useState(null);
+  const [unsplashData, setUnsplashData] = useState<any[] | null>(null);
+
+  const loadUnsplash = async () => {
+    const unsplashResponse = await getAllUnsplash();
+    console.log(`unsplashResponse: ${JSON.stringify(unsplashResponse)}`);
+    if (!!unsplashResponse) setUnsplashData(unsplashResponse);
+  };
 
   useEffect(() => {
     unsplashURL = `${window.location.origin}/api/unsplash`;
+    loadUnsplash();
   }, []);
+
+  const MansoryComponent = (): JSX.Element => {
+    if (!unsplashData || !unsplashData.length) return <></>;
+    return (
+      <Masonry columns={3} spacing={4}>
+        {unsplashData.map((data) => {
+          return (
+            <Box key={data.id} className={styles.masonry_image_box}>
+              <img
+                className={styles.masonry_image}
+                src={data.imageUrl}
+                alt="alt"
+                width="100%"
+              />
+              {/* <Button>Hello</Button> */}
+            </Box>
+          );
+        })}
+      </Masonry>
+    );
+  };
 
   return (
     <>
@@ -55,24 +84,7 @@ const Home: NextPage = () => {
         </nav>
 
         <Box className={styles.masonry_container}>
-          <Masonry columns={3} spacing={4}>
-            {[
-              "https://image-uploader-tool.herokuapp.com/api/image/unsplash/vjn4gmaffgyt8cq3dgss",
-              "https://image-uploader-tool.herokuapp.com/api/image/unsplash/rt0ua72ertglkp0vgxyb",
-            ].map((link, index) => {
-              return (
-                <Box key={index} className={styles.masonry_image_box}>
-                  <img
-                    className={styles.masonry_image}
-                    src={link}
-                    alt="alt"
-                    width="100%"
-                  />
-                  {/* <Button>Hello</Button> */}
-                </Box>
-              );
-            })}
-          </Masonry>
+          <MansoryComponent />
         </Box>
       </Box>
       <AddPhotoForm
