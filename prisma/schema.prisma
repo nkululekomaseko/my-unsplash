@@ -10,7 +10,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Unsplash {
+model unsplash {
   id        String   @id @default(cuid()) @map("_id")
   label     String
   imageUrl  String
