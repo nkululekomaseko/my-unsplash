@@ -15,7 +15,7 @@ export default async function handler(
   try {
     switch (request.method) {
       case "GET": {
-        if (request.query.id) {
+        if (!!request.query.id) {
           const unsplash = await getUnsplashById(request.query.id as string);
           if (!!unsplash) {
             return response.status(200).json(unsplash);
@@ -23,7 +23,9 @@ export default async function handler(
             return response.status(404); // Not Found
           }
         } else {
-          const unsplash = await getAllUnsplash();
+          const unsplash = await getAllUnsplash(
+            request.query.filterQuery as string | undefined
+          );
           if (!!unsplash) {
             return response.status(200).json(unsplash);
           } else {
