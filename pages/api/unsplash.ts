@@ -1,12 +1,12 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
-import { UnsplashSchema } from "../../prisma/unsplash";
+import { UnsplashSchema } from "../../prisma/unsplash.service";
 import {
   getAllUnsplash,
   getUnsplashById,
   createUnsplash,
   deleteUnsplashById,
-} from "../../prisma/unsplash";
+} from "../../prisma/unsplash.service";
 
 export default async function handler(
   request: NextApiRequest,
