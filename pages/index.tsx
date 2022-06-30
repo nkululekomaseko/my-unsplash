@@ -28,7 +28,7 @@ const Home: NextPage = () => {
     loadUnsplash();
   }, []);
 
-  const MansoryComponent = (): JSX.Element => {
+  const MasonryComponent = (): JSX.Element => {
     if (!unsplashData || !unsplashData.length) return <></>;
     return (
       <Masonry columns={3} spacing={4}>
@@ -84,7 +84,7 @@ const Home: NextPage = () => {
         </nav>
 
         <Box className={styles.masonry_container}>
-          <MansoryComponent />
+          <MasonryComponent />
         </Box>
       </Box>
       <AddPhotoForm
