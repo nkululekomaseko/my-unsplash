@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
@@ -7,19 +7,44 @@ import { Search } from "tabler-icons-react";
 import { Box, Button, TextInput } from "@mantine/core";
 import { Masonry } from "@mui/lab";
 import AddPhotoForm from "../components/AddPhotoForm";
-import { useState } from "react";
 import { getAllUnsplash } from "../components/apiRequest";
-import { UnsplashSchema } from "../prisma/unsplash";
+import { useDebouncedValue } from "@mantine/hooks";
 
 export let unsplashURL: string | undefined = undefined;
+
+type Props = {
+  unsplashData: any[] | null;
+};
+
+const MasonryComponent = (props: Props): JSX.Element => {
+  const { unsplashData } = props;
+  if (!unsplashData || !unsplashData.length) return <></>;
+  return (
+    <Masonry columns={3} spacing={4}>
+      {unsplashData.map((data) => {
+        return (
+          <Box key={data.id} className={styles.masonry_image_box}>
+            <img
+              className={styles.masonry_image}
+              src={data.imageUrl}
+              alt="alt"
+              width="100%"
+            />
+          </Box>
+        );
+      })}
+    </Masonry>
+  );
+};
 
 const Home: NextPage = () => {
   const [openPhotoFormModal, setOpenPhotoFormModal] = useState<boolean>(false);
   const [unsplashData, setUnsplashData] = useState<any[] | null>(null);
+  const [searchText, setSearchText] = useState<string>("");
+  const [debouncedSearchText] = useDebouncedValue<string>(searchText, 500);
 
-  const loadUnsplash = async () => {
-    const unsplashResponse = await getAllUnsplash();
-    console.log(`unsplashResponse: ${JSON.stringify(unsplashResponse)}`);
+  const loadUnsplash = async (filterQuery?: string) => {
+    const unsplashResponse = await getAllUnsplash(filterQuery);
     if (!!unsplashResponse) setUnsplashData(unsplashResponse);
   };
 
@@ -28,26 +53,9 @@ const Home: NextPage = () => {
     loadUnsplash();
   }, []);
 
-  const MasonryComponent = (): JSX.Element => {
-    if (!unsplashData || !unsplashData.length) return <></>;
-    return (
-      <Masonry columns={3} spacing={4}>
-        {unsplashData.map((data) => {
-          return (
-            <Box key={data.id} className={styles.masonry_image_box}>
-              <img
-                className={styles.masonry_image}
-                src={data.imageUrl}
-                alt="alt"
-                width="100%"
-              />
-              {/* <Button>Hello</Button> */}
-            </Box>
-          );
-        })}
-      </Masonry>
-    );
-  };
+  useEffect(() => {
+    loadUnsplash(debouncedSearchText);
+  }, [debouncedSearchText]);
 
   return (
     <>
@@ -71,6 +79,8 @@ const Home: NextPage = () => {
               className={styles.search__input}
               placeholder="Search by name"
               icon={<Search />}
+              value={searchText}
+              onChange={(event) => setSearchText(event.currentTarget.value)}
             />
           </Box>
           <Box>
@@ -84,7 +94,7 @@ const Home: NextPage = () => {
         </nav>
 
         <Box className={styles.masonry_container}>
-          <MasonryComponent />
+          <MasonryComponent unsplashData={unsplashData} />
         </Box>
       </Box>
       <AddPhotoForm
