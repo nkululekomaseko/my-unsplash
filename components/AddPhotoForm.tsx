@@ -1,26 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Stack, Modal, Text, TextInput, Group, Button } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { UnsplashSchema } from "../prisma/unsplash";
-import axios from "axios";
+import { createNewUnsplash } from "../components/apiRequest";
 
 type Props = {
   openModal: boolean;
   setOpenModal: (update: boolean) => void;
-};
-
-let unsplashURL: string | undefined = undefined;
-
-const getAllUnsplash = async (): Promise<UnsplashSchema[] | null> => {
-  if (!unsplashURL) return null;
-  const unsplashResponse = await axios.get(unsplashURL);
-  return unsplashResponse.data;
-};
-
-const createNewUnsplash = async (payload: UnsplashSchema) => {
-  if (!unsplashURL) return null;
-  const createUnsplashResponse = await axios.post(unsplashURL, { ...payload });
-  return createUnsplashResponse.data;
 };
 
 const AddPhotoForm = (props: Props) => {
@@ -53,10 +38,6 @@ const AddPhotoForm = (props: Props) => {
       },
     },
   });
-
-  useEffect(() => {
-    unsplashURL = `${window.location.origin}/api/unsplash`;
-  }, []);
 
   const handleCancelBtn = () => {
     form.reset();

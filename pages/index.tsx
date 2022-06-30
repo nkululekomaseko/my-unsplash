@@ -1,4 +1,5 @@
 import type { NextPage } from "next";
+import { useEffect } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
@@ -7,9 +8,17 @@ import { Box, Button, TextInput } from "@mantine/core";
 import { Masonry } from "@mui/lab";
 import AddPhotoForm from "../components/AddPhotoForm";
 import { useState } from "react";
+import { getAllUnsplash } from "../components/apiRequest";
+
+export let unsplashURL: string | undefined = undefined;
 
 const Home: NextPage = () => {
   const [openPhotoFormModal, setOpenPhotoFormModal] = useState<boolean>(false);
+  const [unsplashData, setUnsplashData] = useState(null);
+
+  useEffect(() => {
+    unsplashURL = `${window.location.origin}/api/unsplash`;
+  }, []);
 
   return (
     <>
@@ -48,13 +57,8 @@ const Home: NextPage = () => {
         <Box className={styles.masonry_container}>
           <Masonry columns={3} spacing={4}>
             {[
-              "https://image-uploader-tool.herokuapp.com/api/image/pexels-blaque-x-863963.jpg",
-              "https://image-uploader-tool.herokuapp.com/api/image/pexels-brett-sayles-2097628.jpg",
-              "https://image-uploader-tool.herokuapp.com/api/image/pexels-katie-burandt-1212693.jpg",
-              "https://image-uploader-tool.herokuapp.com/api/image/pexels-helena-lopes-1388069.jpg",
-              "https://image-uploader-tool.herokuapp.com/api/image/pexels-pixabay-36729.jpg",
-              "https://image-uploader-tool.herokuapp.com/api/image/pexels-oliver-sjÃ¶strÃ¶m-1433052.jpg",
-              "https://image-uploader-tool.herokuapp.com/api/image/pexels-tetyana-kovyrina-937980.jpg",
+              "https://image-uploader-tool.herokuapp.com/api/image/unsplash/vjn4gmaffgyt8cq3dgss",
+              "https://image-uploader-tool.herokuapp.com/api/image/unsplash/rt0ua72ertglkp0vgxyb",
             ].map((link, index) => {
               return (
                 <Box key={index} className={styles.masonry_image_box}>
