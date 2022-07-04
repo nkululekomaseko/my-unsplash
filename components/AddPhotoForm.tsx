@@ -6,10 +6,11 @@ import { createNewUnsplash } from "../components/apiRequest";
 type Props = {
   openModal: boolean;
   setOpenModal: (update: boolean) => void;
+  reloadData: (filterQuery?: string) => void;
 };
 
 const AddPhotoForm = (props: Props) => {
-  const { openModal, setOpenModal } = props;
+  const { openModal, setOpenModal, reloadData } = props;
   const form = useForm({
     initialValues: {
       label: "",
@@ -39,7 +40,7 @@ const AddPhotoForm = (props: Props) => {
     },
   });
 
-  const handleCancelBtn = () => {
+  const handleModalClose = () => {
     form.reset();
     setOpenModal(false);
   };
@@ -47,8 +48,6 @@ const AddPhotoForm = (props: Props) => {
   const handleFormSubmit = async (event: any) => {
     event.preventDefault();
     form.validate();
-    console.log(form.values);
-    console.log(form.validate());
     if (!form.validate().hasErrors) {
       const submitResponseData = await createNewUnsplash({
         label: form.values.label,
@@ -58,6 +57,10 @@ const AddPhotoForm = (props: Props) => {
       console.log(
         `submitResponse: ${JSON.stringify(submitResponseData, null, 2)}`
       );
+      if (!!submitResponseData) {
+        reloadData();
+        handleModalClose();
+      }
     }
   };
 
@@ -93,7 +96,7 @@ const AddPhotoForm = (props: Props) => {
             />
           </Stack>
           <Group position="right" mt="md">
-            <Button onClick={handleCancelBtn}>Cancel</Button>
+            <Button onClick={handleModalClose}>Cancel</Button>
             <Button type="submit">Submit</Button>
           </Group>
         </form>

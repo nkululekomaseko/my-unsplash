@@ -121,6 +121,7 @@ const Home: NextPage = () => {
       <AddPhotoForm
         openModal={openPhotoFormModal}
         setOpenModal={setOpenPhotoFormModal}
+        reloadData={loadUnsplash}
       />
     </>
   );
