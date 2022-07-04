@@ -10,7 +10,9 @@ import {
 
 export default async function handler(
   request: NextApiRequest,
-  response: NextApiResponse<UnsplashSchema | UnsplashSchema[]>
+  response: NextApiResponse<
+    UnsplashSchema | UnsplashSchema[] | { error: string }
+  >
 ) {
   try {
     switch (request.method) {
@@ -38,18 +40,22 @@ export default async function handler(
         return response.status(200).json(unsplash);
       }
       case "DELETE": {
-        console.log(`request.body: ${request.body.candidatePassword}`);
-        console.log(`request.query.id: ${request.query.id}`);
         const { candidatePassword } = request.body;
         if (!!candidatePassword && !!request.query.id) {
-          const unsplash = await deleteUnsplashById(
+          const unsplashDbResponse = await deleteUnsplashById(
             request.query.id as string,
             candidatePassword
           );
-          if (!!unsplash) {
-            return response.status(200).json(unsplash);
+          console.log(
+            `DB Service response: ${JSON.stringify(unsplashDbResponse)}`
+          );
+          if (!!unsplashDbResponse) {
+            if (unsplashDbResponse.argon && !!unsplashDbResponse.unsplash) {
+              return response.status(200).json(unsplashDbResponse.unsplash);
+            }
+            return response.status(401).json({ error: "Unauthorized" });
           } else {
-            return response.status(404); // Not Found
+            return response.status(404).json({ error: "Not Found" }); // Not Found
           }
         }
       }

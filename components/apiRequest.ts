@@ -17,15 +17,25 @@ export const getAllUnsplash = async (
 
 export const createNewUnsplash = async (payload: UnsplashSchema) => {
   if (!unsplashURL) return null;
-  const createUnsplashResponse = await axios.post(unsplashURL, { ...payload });
-  return createUnsplashResponse.data;
+  try {
+    const createUnsplashResponse = await axios.post(unsplashURL, {
+      ...payload,
+    });
+    return createUnsplashResponse.data;
+  } catch (error: any) {
+    return error;
+  }
 };
 
 export const deleteUnsplash = async (imageId: string) => {
   if (!unsplashURL) return null;
-  const deleteUnsplashResponse = await axios.delete(
-    `${unsplashURL}?id=${imageId}`,
-    { data: { candidatePassword: "123456" } }
-  );
-  return deleteUnsplashResponse.data;
+  try {
+    const deleteUnsplashResponse = await axios.delete(
+      `${unsplashURL}?id=${imageId}`,
+      { data: { candidatePassword: "123456" } }
+    );
+    return deleteUnsplashResponse.data;
+  } catch (error: any) {
+    return error;
+  }
 };

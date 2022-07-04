@@ -58,12 +58,22 @@ export const deleteUnsplashById = async (
   candidatePassword: string
 ) => {
   const unsplashResponse = await getUnsplashById(id);
-  if (
-    !!unsplashResponse &&
-    argon2.verify(unsplashResponse.password, candidatePassword)
-  ) {
-    const unsplash = await prisma.unsplash.delete({ where: { id } });
-    return unsplash;
+  console.log(
+    `unsplashResponse From DB: ${JSON.stringify(unsplashResponse, null, 2)}`
+  );
+  console.log(`Candidate Password from Front End: ${candidatePassword}`);
+  if (!!unsplashResponse) {
+    const argonResponse = await argon2.verify(
+      unsplashResponse.password,
+      candidatePassword
+    );
+    console.log(`Argon2 Response: ${argonResponse}`);
+    if (!!argonResponse) {
+      const unsplash = await prisma.unsplash.delete({ where: { id } });
+      return { argon: true, unsplash };
+    } else {
+      return { argon: false };
+    }
   }
   return null;
 };
