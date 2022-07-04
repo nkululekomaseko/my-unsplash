@@ -10,6 +10,7 @@ import {
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { createNewUnsplash } from "../components/apiRequest";
+import { showNotification } from "@mantine/notifications";
 
 type Props = {
   openModal: boolean;
@@ -70,6 +71,11 @@ const AddPhotoForm = (props: Props) => {
         `submitResponse: ${JSON.stringify(submitResponseData, null, 2)}`
       );
       if (!!submitResponseData) {
+        showNotification({
+          title: "Image Uploaded Successfully",
+          message: `Image ${form.values.label} has been uploaded successfully`,
+          autoClose: 2000,
+        });
         reloadData();
         handleModalClose();
       }
