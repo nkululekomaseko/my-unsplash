@@ -32,7 +32,7 @@ export const deleteUnsplash = async (imageId: string) => {
   try {
     const deleteUnsplashResponse = await axios.delete(
       `${unsplashURL}?id=${imageId}`,
-      { data: { candidatePassword: "123456" } }
+      { data: { candidatePassword: "abc123" } }
     );
     return deleteUnsplashResponse.data;
   } catch (error: any) {
