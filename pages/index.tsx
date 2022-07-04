@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import { useState, useEffect } from "react";
+import { useState, useEffect, MouseEventHandler } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
@@ -7,7 +7,7 @@ import { Search } from "tabler-icons-react";
 import { Box, Button, TextInput } from "@mantine/core";
 import { Masonry } from "@mui/lab";
 import AddPhotoForm from "../components/AddPhotoForm";
-import { getAllUnsplash } from "../components/apiRequest";
+import { getAllUnsplash, deleteUnsplash } from "../components/apiRequest";
 import { useDebouncedValue } from "@mantine/hooks";
 
 export let unsplashURL: string | undefined = undefined;
@@ -19,6 +19,19 @@ type Props = {
 const MasonryComponent = (props: Props): JSX.Element => {
   const { unsplashData } = props;
   if (!unsplashData || !unsplashData.length) return <></>;
+
+  const handleDeleteBtnClick = async (imageId: string) => {
+    console.log(`Image ID: ${imageId}`);
+    const deleteUnsplasResponseData = await deleteUnsplash(imageId);
+    console.log(
+      `deleteUnsplasResponseData: ${JSON.stringify(
+        deleteUnsplasResponseData,
+        null,
+        2
+      )}`
+    );
+  };
+
   return (
     <Masonry columns={3} spacing={4}>
       {unsplashData.map((data) => {
@@ -30,7 +43,12 @@ const MasonryComponent = (props: Props): JSX.Element => {
               alt="alt"
               width="100%"
             />
-            <Button className={styles.masonry_delete_btn} variant="outline">
+            <Button
+              value={data.id}
+              className={styles.masonry_delete_btn}
+              variant="outline"
+              onClick={() => handleDeleteBtnClick(data.id)}
+            >
               delete
             </Button>
           </Box>
