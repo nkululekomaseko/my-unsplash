@@ -20,3 +20,12 @@ export const createNewUnsplash = async (payload: UnsplashSchema) => {
   const createUnsplashResponse = await axios.post(unsplashURL, { ...payload });
   return createUnsplashResponse.data;
 };
+
+export const deleteUnsplash = async (imageId: string) => {
+  if (!unsplashURL) return null;
+  const deleteUnsplashResponse = await axios.delete(
+    `${unsplashURL}?id=${imageId}`,
+    { data: { candidatePassword: "123456" } }
+  );
+  return deleteUnsplashResponse.data;
+};

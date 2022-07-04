@@ -38,6 +38,8 @@ export default async function handler(
         return response.status(200).json(unsplash);
       }
       case "DELETE": {
+        console.log(`request.body: ${request.body.candidatePassword}`);
+        console.log(`request.query.id: ${request.query.id}`);
         const { candidatePassword } = request.body;
         if (!!candidatePassword && !!request.query.id) {
           const unsplash = await deleteUnsplashById(
