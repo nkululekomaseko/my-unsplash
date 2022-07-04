@@ -14,22 +14,19 @@ export let unsplashURL: string | undefined = undefined;
 
 type Props = {
   unsplashData: any[] | null;
+  reloadData: (filterQuery?: string) => void;
 };
 
 const MasonryComponent = (props: Props): JSX.Element => {
-  const { unsplashData } = props;
+  const { unsplashData, reloadData } = props;
   if (!unsplashData || !unsplashData.length) return <></>;
 
   const handleDeleteBtnClick = async (imageId: string) => {
     console.log(`Image ID: ${imageId}`);
     const deleteUnsplasResponseData = await deleteUnsplash(imageId);
-    console.log(
-      `deleteUnsplasResponseData: ${JSON.stringify(
-        deleteUnsplasResponseData,
-        null,
-        2
-      )}`
-    );
+    if (deleteUnsplasResponseData) {
+      reloadData();
+    }
   };
 
   return (
@@ -115,7 +112,10 @@ const Home: NextPage = () => {
         </nav>
 
         <Box className={styles.masonry_container}>
-          <MasonryComponent unsplashData={unsplashData} />
+          <MasonryComponent
+            unsplashData={unsplashData}
+            reloadData={loadUnsplash}
+          />
         </Box>
       </Box>
       <AddPhotoForm
