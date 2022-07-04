@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Stack, Modal, Text, TextInput, Group, Button } from "@mantine/core";
+import {
+  Stack,
+  Modal,
+  Text,
+  TextInput,
+  Group,
+  Button,
+  LoadingOverlay,
+} from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { createNewUnsplash } from "../components/apiRequest";
 
@@ -11,6 +19,8 @@ type Props = {
 
 const AddPhotoForm = (props: Props) => {
   const { openModal, setOpenModal, reloadData } = props;
+  const [loading, setLoading] = useState<boolean>(false);
+
   const form = useForm({
     initialValues: {
       label: "",
@@ -49,11 +59,13 @@ const AddPhotoForm = (props: Props) => {
     event.preventDefault();
     form.validate();
     if (!form.validate().hasErrors) {
+      setLoading(true);
       const submitResponseData = await createNewUnsplash({
         label: form.values.label,
         imageUrl: form.values.imageURL,
         password: form.values.password,
       });
+      setLoading(false);
       console.log(
         `submitResponse: ${JSON.stringify(submitResponseData, null, 2)}`
       );
@@ -100,6 +112,7 @@ const AddPhotoForm = (props: Props) => {
             <Button type="submit">Submit</Button>
           </Group>
         </form>
+        <LoadingOverlay visible={loading} />
       </Modal>
     </>
   );
