@@ -4,7 +4,7 @@ import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import { Search } from "tabler-icons-react";
-import { Box, Button, TextInput } from "@mantine/core";
+import { Box, Button, TextInput, Text } from "@mantine/core";
 import { Masonry } from "@mui/lab";
 import AddPhotoForm from "../components/AddPhotoForm";
 import { getAllUnsplash, deleteUnsplash } from "../components/apiRequest";
@@ -48,6 +48,7 @@ const MasonryComponent = (props: Props): JSX.Element => {
             >
               delete
             </Button>
+            <Text className={styles.masonry_img_label}>{data.label}</Text>
           </Box>
         );
       })}

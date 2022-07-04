@@ -42,7 +42,6 @@
 .masonry_image_box {
   display: flex;
   align-items: center;
-  justify-content: center;
   position: relative;
 }
 
@@ -56,6 +55,26 @@
   font-family: "Montserrat";
   font-weight: 500;
   font-size: 10px;
+  display: none;
+}
+
+.masonry_img_label {
+  display: none;
+  position: absolute;
+  padding: 0 5%;
+  bottom: 5%;
+  font-family: "Montserrat";
+  font-weight: 700;
+  font-size: 18px;
+  color: white;
+}
+
+.masonry_image_box:hover .masonry_delete_btn {
+  display: flex;
+}
+
+.masonry_image_box:hover .masonry_img_label {
+  display: flex;
 }
 
 .masonry_image {
