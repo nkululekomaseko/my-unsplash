@@ -30,6 +30,9 @@ const MasonryComponent = (props: Props): JSX.Element => {
               alt="alt"
               width="100%"
             />
+            <Button className={styles.masonry_delete_btn} variant="outline">
+              delete
+            </Button>
           </Box>
         );
       })}
