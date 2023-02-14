@@ -114,8 +114,17 @@ const AddPhotoForm = (props: Props) => {
             />
           </Stack>
           <Group position="right" mt="md">
-            <Button onClick={handleModalClose}>Cancel</Button>
-            <Button type="submit">Submit</Button>
+            <Button
+              variant="subtle"
+              color="gray"
+              radius="md"
+              onClick={handleModalClose}
+            >
+              Cancel
+            </Button>
+            <Button color="green" radius="md" type="submit">
+              Submit
+            </Button>
           </Group>
         </form>
         <LoadingOverlay visible={loading} />
