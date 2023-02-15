@@ -4,7 +4,7 @@ import { NotificationsProvider } from "@mantine/notifications";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <NotificationsProvider>
+    <NotificationsProvider position="top-right" zIndex={100}>
       <Component {...pageProps} />
     </NotificationsProvider>
   );

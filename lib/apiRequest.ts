@@ -27,15 +27,18 @@ export const createNewUnsplash = async (payload: UnsplashSchema) => {
   }
 };
 
-export const deleteUnsplash = async (imageId: string) => {
+export const deleteUnsplash = async (props: {
+  imageId: string;
+  candidatePassword: string;
+}) => {
   if (!unsplashURL) return null;
   try {
     const deleteUnsplashResponse = await axios.delete(
-      `${unsplashURL}?id=${imageId}`,
-      { data: { candidatePassword: "abc123" } }
+      `${unsplashURL}?id=${props.imageId}`,
+      { data: { candidatePassword: props.candidatePassword } }
     );
-    return deleteUnsplashResponse.data;
+    return { authorized: true, data: deleteUnsplashResponse.data };
   } catch (error: any) {
-    return error;
+    return { authorized: false, error };
   }
 };

@@ -1,60 +1,17 @@
 import type { NextPage } from "next";
-import { useState, useEffect, MouseEventHandler } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import { Search } from "tabler-icons-react";
 import { Box, Button, TextInput, Text } from "@mantine/core";
-import { Masonry } from "@mui/lab";
+
 import AddPhotoForm from "../components/AddPhotoForm";
-import { getAllUnsplash, deleteUnsplash } from "../components/apiRequest";
+import { getAllUnsplash, deleteUnsplash } from "../lib/apiRequest";
 import { useDebouncedValue } from "@mantine/hooks";
+import { useEffect, useState } from "react";
+import MasonryComponent from "../components/MasonryComponent";
 
 export let unsplashURL: string | undefined = undefined;
-
-type Props = {
-  unsplashData: any[] | null;
-  reloadData: (filterQuery?: string) => void;
-};
-
-const MasonryComponent = (props: Props): JSX.Element => {
-  const { unsplashData, reloadData } = props;
-  if (!unsplashData || !unsplashData.length) return <></>;
-
-  const handleDeleteBtnClick = async (imageId: string) => {
-    console.log(`Image ID: ${imageId}`);
-    const deleteUnsplasResponseData = await deleteUnsplash(imageId);
-    if (deleteUnsplasResponseData) {
-      reloadData();
-    }
-  };
-
-  return (
-    <Masonry columns={3} spacing={4}>
-      {unsplashData.map((data) => {
-        return (
-          <Box key={data.id} className={styles.masonry_image_box}>
-            <img
-              className={styles.masonry_image}
-              src={data.imageUrl}
-              alt="alt"
-              width="100%"
-            />
-            <Button
-              value={data.id}
-              className={styles.masonry_delete_btn}
-              variant="outline"
-              onClick={() => handleDeleteBtnClick(data.id)}
-            >
-              delete
-            </Button>
-            <Text className={styles.masonry_img_label}>{data.label}</Text>
-          </Box>
-        );
-      })}
-    </Masonry>
-  );
-};
 
 const Home: NextPage = () => {
   const [openPhotoFormModal, setOpenPhotoFormModal] = useState<boolean>(false);

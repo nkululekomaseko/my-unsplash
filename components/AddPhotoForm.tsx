@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Stack,
   Modal,
@@ -9,7 +9,7 @@ import {
   LoadingOverlay,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { createNewUnsplash } from "../components/apiRequest";
+import { createNewUnsplash } from "../lib/apiRequest";
 import { showNotification } from "@mantine/notifications";
 
 type Props = {
@@ -84,7 +84,15 @@ const AddPhotoForm = (props: Props) => {
 
   return (
     <>
-      <Modal opened={openModal} onClose={() => setOpenModal(false)}>
+      <Modal
+        opened={openModal}
+        onClose={() => setOpenModal(false)}
+        sx={{
+          ".mantine-Modal-close": {
+            display: "none",
+          },
+        }}
+      >
         <Text>Add a new photo</Text>
         <form onSubmit={handleFormSubmit}>
           <Stack>
