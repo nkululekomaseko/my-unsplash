@@ -17,7 +17,7 @@ const Home: NextPage = () => {
   const [openPhotoFormModal, setOpenPhotoFormModal] = useState<boolean>(false);
   const [unsplashData, setUnsplashData] = useState<any[] | null>(null);
   const [searchText, setSearchText] = useState<string>("");
-  const [debouncedSearchText] = useDebouncedValue<string>(searchText, 500);
+  const [debounced] = useDebouncedValue<string>(searchText, 200);
 
   const loadUnsplash = async (filterQuery?: string) => {
     const unsplashResponse = await getAllUnsplash(filterQuery);
@@ -30,8 +30,8 @@ const Home: NextPage = () => {
   }, []);
 
   useEffect(() => {
-    loadUnsplash(debouncedSearchText);
-  }, [debouncedSearchText]);
+    loadUnsplash(debounced);
+  }, [debounced]);
 
   return (
     <>
