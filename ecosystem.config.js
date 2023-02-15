@@ -1,11 +1,9 @@
 module.exports = {
   apps: [
     {
-      name: "image-uploader",
-      watch: false,
-      force: true,
+      name: "my-unsplash",
+      script: "node_modules/next/dist/bin/next",
       env: {
-        PORT: 4000,
         NODE_ENV: "production",
       },
     },
