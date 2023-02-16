@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ["image-uploader-tool.herokuapp.com"],
+    domains: ["image-uploader.nkululekomaseko.com", "ca.slack-edge.com"],
   },
 };
 

@@ -1,8 +1,11 @@
+.container {
+  margin: 1% 3%;
+}
+
 .nav__container {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 3%;
 }
 
 .nav__left {
@@ -34,9 +37,9 @@
 
 .masonry_container {
   width: 100%;
-  min-height: 900px;
   display: flex;
   justify-content: center;
+  margin-top: 2%;
 }
 
 .masonry_image_box {
