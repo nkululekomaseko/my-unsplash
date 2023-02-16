@@ -85,12 +85,19 @@ const DeleteUnsplashForm = (
             },
           }}
         >
-          <Text>Are you sure?</Text>
+          <Text
+            color="#333333"
+            sx={{ marginBottom: "20px", fontSize: "24px", fontWeight: 500 }}
+          >
+            Are you sure?
+          </Text>
           <form onSubmit={handleFormSubmit}>
             <Stack>
               <TextInput
                 type="password"
                 label="Password"
+                radius="md"
+                size="md"
                 required
                 {...form.getInputProps("password")}
               />

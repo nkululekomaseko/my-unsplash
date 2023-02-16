@@ -1,6 +1,5 @@
-import { Box, Button, Text } from "@mantine/core";
+import { Box, Button, Image, Text } from "@mantine/core";
 import Masonry from "@mui/lab/Masonry";
-import { deleteUnsplash } from "../lib/apiRequest";
 import styles from "../styles/Home.module.css";
 import DeleteUnsplashForm from "./DeleteUnsplashForm";
 
@@ -27,12 +26,7 @@ const MasonryComponent = (props: Props): JSX.Element => {
         {unsplashData.map((data) => {
           return (
             <Box key={data.id} className={styles.masonry_image_box}>
-              <img
-                className={styles.masonry_image}
-                src={data.imageUrl}
-                alt="alt"
-                width="100%"
-              />
+              <Image src={data.imageUrl} alt="alt" radius="lg" />
               <Button
                 value={data.id}
                 className={styles.masonry_delete_btn}

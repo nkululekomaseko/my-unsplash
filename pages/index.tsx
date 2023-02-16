@@ -52,11 +52,12 @@ const Home: NextPage = () => {
               alt="logo"
             />
             <TextInput
-              className={styles.search__input}
               placeholder="Search by name"
               icon={<Search />}
               value={searchText}
               onChange={(event) => setSearchText(event.currentTarget.value)}
+              radius={12}
+              size="lg"
             />
           </Box>
           <Box>

@@ -93,30 +93,43 @@ const AddPhotoForm = (props: Props) => {
           },
         }}
       >
-        <Text>Add a new photo</Text>
+        <Text
+          color="#333333"
+          sx={{ marginBottom: "20px", fontSize: "24px", fontWeight: 500 }}
+        >
+          Add a new photo
+        </Text>
         <form onSubmit={handleFormSubmit}>
           <Stack>
             <TextInput
               type="text"
               label="Label"
+              radius="md"
+              size="md"
               required
               {...form.getInputProps("label")}
             />
             <TextInput
               type="text"
               label="Photo URL"
+              radius="md"
+              size="md"
               required
               {...form.getInputProps("imageURL")}
             />
             <TextInput
               type="password"
               label="Password"
+              radius="md"
+              size="md"
               required
               {...form.getInputProps("password")}
             />
             <TextInput
               type="password"
               label="Confirm Password"
+              radius="md"
+              size="md"
               required
               {...form.getInputProps("confirmPassword")}
             />
