@@ -1,34 +1,48 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<h1 align="center">My Unsplash</h1>
+<div align="center">
+  <h3>
+    <a href="https://unsplash.nkululekomaseko.com">
+      Demo
+    </a>
+    <span> | </span>
+    <a href="https://devchallenges.io/challenges/rYyhwJAxMfES5jNQ9YsP">
+      Challenge
+    </a>
+        <span> | </span>
+    <a href="https://github.com/nkululekomaseko/my-unsplash">
+      Solution
+    </a>
+  </h3>
+</div>
 
-## Getting Started
+## Table of Content
 
-First, run the development server:
+- [Overview](#overview)
+- [Tech Stack](#tech-stack)
+- [Features](#features)
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+## Overview
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Image uploader is an app developed as a solution to this [DevChallenge](https://devchallenges.io/challenges/rYyhwJAxMfES5jNQ9YsP)
+The app can be found here: "https://image-uploader.nkululekomaseko.com"
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## Tech Stack
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+- [NextJS] (https://nextjs.org/)
+- [Typescript] (https://www.typescriptlang.org/)
+- [MantineUI] (https://mantine.dev/)
+- [MUI-Masonry] (https://mui.com/material-ui/react-masonry/)
+- [Axios] (https://www.axios.com/)
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## Features
 
-## Learn More
+This app was developed as a solution to a [DevChallenge](https://devchallenges.io/challenges/rYyhwJAxMfES5jNQ9YsP).
 
-To learn more about Next.js, take a look at the following resources:
+Challenge: Create my Unsplash app. Use Front-end libraries like React or Vue. Create your own API. Don’t look at the existing solution. Fulfill user stories below:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- User story: I can see a list of photos in the masonry layout that I have added.
+- User story: I can add a new photo to the list - the new photo should be on top of the list.
+- User story: I can search for photos by label.
+- User story: When I hover a photo, I can see a label and a delete button.
+- User story: I can delete images.
+- User story: When I delete an image, I can enter my password.
